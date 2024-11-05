@@ -1,38 +1,39 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <!-- <link rel="icon" type="image/svg+xml" href="@@" /> -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SPARQL canon playground</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<header class="logo">
-  <a href=".">
-    <img src="https://www.musicguymixing.com/wp-content/uploads/2024/05/paz-spectrum-analyzer.jpg" alt="analyzer logo" width="100">
-  </a>
-</header>
-<main id="app">
-  <h1 class="title">SPARQL canon - analyzer</h1>
-  <section class="counter">
-    <div class="counter-info">
-      <p class="counter-text">input SPARQL</p>
-      <div class="huh">
-        <textarea class="counter-value" id="counter-value"></textarea>
-      </div>
-    </div>
-    <div class="counter-interaction">
-      <button id="increaseByOne" type="button">+1</button>
-      <button id="increaseByTwo" type="button">+2</button>
-      <button id="decreaseByOne" type="button">-1</button>
-      <button id="decreaseByTwo" type="button">-2</button>
-    </div>
-  </section>
-</main>
-<footer class="technologies">
-  <img src="https://www.w3.org/Icons/SW/Buttons/sw-sparql-blue-v.svg" alt="SPARQL" width="100">
-</footer>
-<script type="module" src="dist/main.js" src999="src/main.ts"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <link rel="icon" type="image/svg+xml" href="@@" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SPARQL canon playground</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="dist/require.js" data-main="requirejs-config.js"></script>
+    <!-- <script type="module" src="dist/main.js"></script> -->
+  </head>
+  <body>
+    <header class="logo">
+      <a href=".">
+        <img src="https://www.musicguymixing.com/wp-content/uploads/2024/05/paz-spectrum-analyzer.jpg" alt="analyzer logo" width="100">
+      </a>
+    </header>
+    <main id="app">
+      <h1 class="title">SPARQL canon - analyzer</h1>
+      <section class="counter">
+        <div class="counter-info">
+          <p class="counter-text">input SPARQL</p>
+          <div class="huh">
+            <textarea class="counter-value" id="counter-value"></textarea>
+          </div>
+        </div>
+        <div class="counter-interaction">
+          <button id="increaseByOne" type="button">+1</button>
+          <button id="increaseByTwo" type="button">+2</button>
+          <button id="decreaseByOne" type="button">-1</button>
+          <button id="decreaseByTwo" type="button">-2</button>
+        </div>
+      </section>
+    </main>
+    <footer class="technologies">
+      <img src="https://www.w3.org/Icons/SW/Buttons/sw-sparql-blue-v.svg" alt="SPARQL" width="100">
+    </footer>
+  </body>
 </html>

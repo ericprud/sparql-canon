@@ -1,3 +1,15 @@
+// Parse a SPARQL query to a JSON object
+console.log("BEFORE");
+import SparqlJs = require('sparqljs');console.log("HERE", SparqlJs);
+// import SparqlJs = require('sparqljs');console.log("HERE",
+// SparqlJs);
+// const SparqlParser = SparqlJs.Parser;
+// const parser = new SparqlParser();
+// const parsedQuery = parser.parse(
+//   'PREFIX foaf: <http://xmlns.com/foaf/0.1/> ' +
+//   'SELECT * { ?mickey foaf:name "Mickey Mouse"@en; foaf:knows ?other. }');
+
+
 export function setupCounter(element: HTMLInputElement) {
   let counter = 0;
 
@@ -30,8 +42,9 @@ SELECT (?o AS ?predicate) ?title WHERE {
     ?s foaf:knows ?o .
     ?s a ?title
   } UNION {
-    ?s schema:birthDate ?o
-    BIND (datatype(?o) AS ?dt)
+    ?s schema:birthDate ?val
+    BIND (schema:birthDate AS ?o)
+    BIND (datatype(?val) AS ?dt)
     BIND (substr(str(?dt), strlen(str(xsd:)) + 1) AS ?title1)
     OPTIONAL {
       VALUES (?dt ?type_code) {
@@ -41,8 +54,12 @@ SELECT (?o AS ?predicate) ?title WHERE {
     }
     BIND (COALESCE(?type_code, "UNKNOWN") as ?title)
   } UNION {
-    ?s foaf:topic_interest ?o .
-    ?o dcterms:title ?title
+    {
+      ?s foaf:topic_interest ?o .
+    }
+    {
+      ?o dcterms:title ?title
+    }
   } 
   VALUES (?s) {
     (<bob#me>)
