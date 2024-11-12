@@ -1,6 +1,9 @@
 // Parse a SPARQL query to a JSON object
 console.log("BEFORE");
-import * as SparqlJs from 'sparqljs'; console.log("HERE", SparqlJs);
+// import camelCase from 'camelcase'; console.log("HERE", camelcase);
+import * as SparqlAnalyzer from './SparqlAnalyzer'; console.log("HERE", SparqlAnalyzer);
+// @999ts-ignore
+import * as SparqlJs from './sparqljs'; console.log("HERE", SparqlJs);
 // import SparqlJs = require('sparqljs');console.log("HERE",
 // SparqlJs);
 // const SparqlParser = SparqlJs.Parser;
