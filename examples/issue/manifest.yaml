@@ -1,0 +1,15 @@
+---
+- title: Discussion hrefs (compact)
+  desc: Issue hrefs with shortcuts '@' and '~'
+  sparqlURL: Issue.rq
+  shapePath: >-
+    /where[0]/triples[0]/subject
+  shapePathSchemaMatch:
+  - termType: Variable
+    value: p
+  dataURL: Issue2.ttl
+  shapeMap: <http://instance.example/project1/Issue2>@<http://project.example/schema#Issue>
+  shapePathDataMatch:
+  - TODOhttp://instance.example/project1/img1.jpg
+  - TODOhttp://instance.example/project1/spec3
+  status: unapproved

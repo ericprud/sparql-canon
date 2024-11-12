@@ -1,0 +1,32 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX : <http://project.example/ns#>
+BASE <http://project.example/schema>
+
+<#Issue> {
+  :name xsd:string  ;
+  :discussion @<#DiscList1> ;
+  :spec IRI OR {
+      :rel xsd:string?;
+      :href IRI
+    | :name xsd:string
+   }* ;
+  :implNote { :href IRI | :text xsd:string }* ;
+}
+
+<#DiscList1> CLOSED {
+  rdf:first @<#DiscItem> ;
+  rdf:rest @<#DiscList0> OR [rdf:nil]
+}
+
+<#DiscList0> CLOSED {
+  rdf:first @<#DiscItem> ;
+  rdf:rest @<#DiscList0> OR [rdf:nil]
+}
+
+<#DiscItem> {
+    :rel xsd:string ;
+    :href IRI
+  | :text xsd:string
+}
+

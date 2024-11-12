@@ -1,0 +1,13 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX : <http://project.example/ns#>
+BASE <http://instance.example/project1/>
+
+<Issue2>
+  :name "dense black smoke"@en ;
+  :discussion ([:text "B0rked"] [:rel "image of smoke"; :href <img1.jpg>]) ;
+  :spec <spec2>, [ :rel "obseletes"; :href <spec3> ]  ;
+  :implNote
+     [:href <http://private-repo.example/toaster-status>],
+     [:text "avoid litigation"] ;
+.
