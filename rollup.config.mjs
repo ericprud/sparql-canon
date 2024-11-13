@@ -1,6 +1,7 @@
 import dts from "rollup-plugin-dts"
 import esbuild from "rollup-plugin-esbuild"
 import { nodeResolve } from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 
 const bundle = (config) => ({
   ...config,
@@ -81,7 +82,9 @@ export default [
         //   moduleDirectories: ['node_modules']
         // }
 
-      })
+      }),
+      // nodeResolve({})
+      commonjs({transformMixedEsModules: true}),
     ],
     output: [
       {

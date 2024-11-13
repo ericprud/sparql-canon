@@ -25,9 +25,11 @@
   },
   "homepage": "https://github.com/shexSpec/ShapePath.js#readme",
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.1",
     "@rollup/plugin-node-resolve": "^15.3.0",
     "@types/commander": "^2.12.2",
     "@types/jest": "^28.1.1",
+    "@types/jsonpath": "^0.2.4",
     "@types/node": "^18.0.0",
     "@types/sparqljs": "^3.1.11",
     "jest": "^28.1.1",
@@ -44,6 +46,7 @@
     "@types/n3": "^1.10.4",
     "commander": "^8.3.0",
     "js-yaml": "^3.14.1",
+    "jsonpath": "^1.1.1",
     "n3": "^1.16.2",
     "sparqljs": "^3.7.3"
   }

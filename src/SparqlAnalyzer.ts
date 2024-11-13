@@ -1,6 +1,7 @@
 /** SPARQL query toolbox
  */
 
+import * as SparqlJs from 'sparqljs';
 import { SparqlQuery } from "sparqljs";
 
 abstract class Serializable {

@@ -1,6 +1,10 @@
 #!/usr/bin/env ts-node
-const Fs = require('fs')
+// import { Parser as SparqlParser } from 'sparqljs';
+import * as Fs from 'fs';
+// const Fs = require('fs')
 import { SparqlAnalyzer } from './SparqlAnalyzer'
+import { SparqlQuery, Parser as SparqlParser } from 'sparqljs'
+import jsonpath from 'jsonpath'
 
 const Base = 'file://' + __dirname
 
@@ -32,9 +36,11 @@ function test (): void {
 }
 
 export function report (pathStr: string, files: string[], command: any, commander: any) {
-  run(pathStr, files, command, commander).forEach( ([leader, schema, schemaNodes]) => {
-    console.log(leader + JSON.stringify(schemaNodes, null, 2))
-  })
+  run(pathStr, files, command, commander).forEach(
+    ({leader, schema, got}) => {
+      console.log(pathStr, got, leader + JSON.stringify(schema, null, 2))
+    }
+  )
 }
 
 export function run (pathStr: string, files: string[], command: any, commander: any) {
@@ -47,7 +53,7 @@ export function run (pathStr: string, files: string[], command: any, commander: 
     prefixes: {}
   }
   if (command.resolve) {
-    yy = readJson(command.resolve)
+    yy = readSparql(command.resolve)
     log('Loaded URI resolution spec from %s', command.resolve)
   }
 
@@ -55,15 +61,17 @@ export function run (pathStr: string, files: string[], command: any, commander: 
   // log('%s compiles to %s', pathStr, JSON.stringify(pathExpr))
   return files.map(filePath => {
     log('Executing %s on %s', pathStr, filePath)
-    const schema: object = readJson(filePath)
+    const schema: object = readSparql(filePath)
     const leader = command['with-filename'] ? filePath + ': ' : ''
-    return [leader, schema]
+    const got = jsonpath.query(schema, pathStr);
+    return {leader, schema, got}
     // const schemaNodes: NodeSet = pathExpr.evalPathExpr([schema], new EvalContext(schema))
     // return [leader, schema, schemaNodes]
   })
 }
 
-function readJson(filePath: string): any {
-  return JSON.parse(Fs.readFileSync(filePath, 'utf8'))
+function readSparql(filePath: string): any {
+  const query = Fs.readFileSync(filePath, 'utf8');
+  return new SparqlParser({ sparqlStar: false }).parse(query)
 }
 
