@@ -14,7 +14,7 @@ export let log = (...args: any) => { }
 
 export const cmd = new Command()
   .arguments('<pathStr> <files...>')
-  .option('-r, --resolve <resolve.json>', 'JSON resolve file to use for URI resolution')
+  .option('-r, --json', 'parse JSON directly from command like arguments')
   .option('-H, --with-filename', 'Print the file name for each match.  This is the default when there is more than one file to search.')
   .option('-D, --debug', 'display some debugging')
 
@@ -37,8 +37,8 @@ function test (): void {
 
 export function report (pathStr: string, files: string[], command: any, commander: any) {
   run(pathStr, files, command, commander).forEach(
-    ({leader, schema, got}) => {
-      console.log(pathStr, got, leader + JSON.stringify(schema, null, 2))
+    ({leader, schema, got}, idx) => {
+      console.log(idx, pathStr, got, leader + JSON.stringify(schema, null, 2))
     }
   )
 }
@@ -48,21 +48,13 @@ export function run (pathStr: string, files: string[], command: any, commander: 
     log = console.warn
     log('Executing %s with options %o on files %s', pathStr, command, files.join(','))
   }
-  let yy = {
-    base: new URL(Base),
-    prefixes: {}
-  }
-  if (command.resolve) {
-    yy = readSparql(command.resolve)
-    log('Loaded URI resolution spec from %s', command.resolve)
-  }
 
   // const pathExpr = new ShapePathParser(yy).parse(pathStr)
   // log('%s compiles to %s', pathStr, JSON.stringify(pathExpr))
   return files.map(filePath => {
     log('Executing %s on %s', pathStr, filePath)
-    const schema: object = readSparql(filePath)
-    const leader = command['with-filename'] ? filePath + ': ' : ''
+    const schema: object = readSparql(filePath, command);debugger
+    const leader = command['withFilename'] ? filePath + ': ' : ''
     const got = jsonpath.query(schema, pathStr);
     return {leader, schema, got}
     // const schemaNodes: NodeSet = pathExpr.evalPathExpr([schema], new EvalContext(schema))
@@ -70,8 +62,14 @@ export function run (pathStr: string, files: string[], command: any, commander: 
   })
 }
 
-function readSparql(filePath: string): any {
-  const query = Fs.readFileSync(filePath, 'utf8');
-  return new SparqlParser({ sparqlStar: false }).parse(query)
+function readSparql(filePath: string, command: any): any {
+
+  if (command.json) {
+    log('Bypassing SPARQL parser and testing %s', command.filePath)
+    return JSON.parse(filePath)
+  } else {
+    const query = Fs.readFileSync(filePath, 'utf8');
+    return new SparqlParser({ sparqlStar: false }).parse(query)
+  }
 }
 
