@@ -1,0 +1,3 @@
+[submodule "fhir-sparql-js"]
+	path = fhir-sparql-js
+	url = git@github.com:fhircat/fhir-sparql-js

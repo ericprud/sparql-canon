@@ -44,6 +44,8 @@
   },
   "dependencies": {
     "@types/n3": "^1.10.4",
+    "@types/shexj": "^2.1.7",
+    "bunyan": "^1.8.15",
     "commander": "^8.3.0",
     "js-yaml": "^3.14.1",
     "jsonpath": "^1.1.1",
