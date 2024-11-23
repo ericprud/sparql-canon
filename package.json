@@ -10,6 +10,7 @@
     "bundle": "rollup --config",
     "compile": "tsc",
     "parse": "ts-node ./src/parseAndPrint.ts ./__tests__/spz/shortcuts.sp",
+    "run": "ts-node ./src/analyzeSparql.ts $.queryType ./fhir-sparql-js/fhir-sparql-test/src/test/resources/org/uu3/trimmed-deep-use-case-query.srq ./examples/issue/Issue.rq ./examples/ask.rq -DH",
     "test:debug": "node --inspect-brk ./node_modules/.bin/jest --runInBand ./__tests__/static-test.ts",
     "test": "jest"
   },

@@ -1,16 +1,14 @@
 #!/usr/bin/env ts-node
 // import { Parser as SparqlParser } from 'sparqljs';
-import * as Fs from 'fs';
-// const Fs = require('fs')
-import { SparqlAnalyzer } from './SparqlAnalyzer'
-// import { SparqlQuery, Parser as SparqlParser } from 'sparqljs'
-// import * as SparqlJs from 'sparqljs';
+import * as Fs from 'fs'
+import * as Path from 'path'
 import {SparqlQuery} from './fhir-sparql-js/RdfUtils';
 // import {Query as SparqlQuery1} from 'sparqljs';
 import jsonpath from 'jsonpath'
 import {QueryAnalyzer, PredicateToShapeDecls} from './fhir-sparql-js/QueryAnalyzer';
 import * as ShExJ from 'shexj';
 const Bunyan = require('bunyan');
+const Resources = Path.join(__dirname, '../fhir-sparql-js/fhir-sparql-test/src/test/resources/org/uu3/');
 
 const Base = 'file://' + __dirname
 
@@ -88,9 +86,9 @@ export function run (pathStr: string, files: string[], command: any, commander: 
       skipUngroupedVariableCheck: false,
       pathOnly: false,
     }
-    const query = SparqlQuery.parse(queryStr, parserOpts);
+    const query = SparqlQuery.parse(queryStr, parserOpts)
     const leader = command['withFilename'] ? filePath + ': ' : ''
-    const got = jsonpath.query(query, pathStr);debugger
+    const got = jsonpath.query(query, pathStr)
     const arcTree = new QueryAnalyzer(null as unknown as ShExJ.Schema).getArcTrees(query)
     return {leader, query, got}
     // const schemaNodes: NodeSet = pathExpr.evalPathExpr([schema], new EvalContext(schema))
